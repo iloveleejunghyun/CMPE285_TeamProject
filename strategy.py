@@ -8,6 +8,10 @@ def get_recommanded_stocks(strategy):
         return "GOOG", "MCD", "KO"
     elif strategy == "Value Investing":
         return "BA", "DAL", "CCL"
+    elif strategy == "Ethical Investing":
+        return 'AAPL', 'GOOG', 'AMZN'
+    elif strategy == "Growth Investing":
+        return 'TSLA','VXRT','NLS','CTRN'
 
 def get_stock(symbol):
     try:
