@@ -5,7 +5,7 @@ def get_recommanded_stocks(strategy):
     if strategy == "Ethical Investing":
         return 'AAPL', 'GOOG', 'AMZN'
     elif strategy == "Growth Investing":
-        return 'ABNB','TSLA','VXRT','NLS','CTRN'
+        return 'TSLA','VXRT','NLS','CTRN'
 
 def get_stock(symbol):
     try:
@@ -24,6 +24,7 @@ def get_stock(symbol):
     except stockquotes.NetworkError as e:
         print("NetworkError")
         return None, None, None, None, None
+
 
 def get_final(strategy):
 
