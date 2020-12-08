@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            Stock Portfolio Suggestion Engine
+        </a>
+    </nav>
+    <div class="container h-100 d-flex justify-content-center mt-2">
+        <form method="post" action="/result">
+            <p class="mb-0">Amount to invest ($)</p>
+            <input type="number" name="amount" min="5000" required>
+            <p class="mb-0 mt-2">Please select one or two investment strageties:</p>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="strategy" value="ethicalInvest" >
+                <label class="form-check-label" for="ethicalInvest">
+                    Ethical Investing
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="strategy" value="growthInvest">
+                <label class="form-check-label" for="growthInvest">
+                    Growth Investing
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="strategy" value="indexInvest">
+                <label class="form-check-label" for="indexInvest">
+                    Index Investing
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="strategy" value="qualityInvest">
+                <label class="form-check-label" for="qualityInvest">
+                    Quality Investing
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="strategy" value="valueInvest">
+                <label class="form-check-label" for="valueInvest">
+                    Value Investing
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">GET INVESTING PLANS</button>
+          </form>
+          </div>
+    </body>
+    
+
+
+</html>
