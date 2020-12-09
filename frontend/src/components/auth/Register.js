@@ -1,42 +1,49 @@
-import React, {Fragment, useState} from 'react'
-import { Link, Redirect } from 'react-router-dom';
+import React, { Fragment, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 
-import {user} from './user'
+import { user } from "./user";
+import { host, port } from "../utils/conf";
 
 const Register = () => {
-    const [loading, setLoading] = useState(false)
-    const [formData, setFormData] = useState({
-        fname: '',
-        lname: '',
-        email: '',
-        password: ''
-      });
-      const onSubmit = e => {
-        e.preventDefault();
-        
-        setLoading(true);
-        setTimeout(() => {
-            user.userId = "test@email.com";
-            setLoading(false);
-        }, 1000);
-        console.log(formData);
-      };
-    
-      const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
-      return user.userId ? (
-          <Redirect to="/" />
-        ) : (
-        <Fragment>
-            <div
-                className={
-                  loading
-                    ? 'ui loading segment'
-                    : 'ui segment'
-                }
-                style={{ background: 'white' }}
-              >
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    password: "",
+  });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    fetch(`${host}:${port}/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status == 200) {
+          user.userId = formData.email;
+          user.name = formData.fname + " " + formData.lname;
+        }
+        setLoading(false);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  return user.userId ? (
+    <Redirect to="/" />
+  ) : (
+    <Fragment>
+      <div
+        className={loading ? "ui loading segment" : "ui segment"}
+        style={{ background: "white" }}
+      >
         <form className="ui form" onSubmit={onSubmit}>
           <div className="two fields">
             <div className="required field">
@@ -49,7 +56,7 @@ const Register = () => {
                 required
               />
             </div>
-    
+
             <div className="required field">
               <label>Last Name</label>
               <input
@@ -61,7 +68,7 @@ const Register = () => {
               />
             </div>
           </div>
-    
+
           <div className="required field">
             <label>Email</label>
             <input
@@ -73,7 +80,7 @@ const Register = () => {
               required
             />
           </div>
-    
+
           <div className="required field">
             <label>Password</label>
             <input
@@ -85,15 +92,15 @@ const Register = () => {
               required
             />
           </div>
-    
+
           <button className="fluid ui primary button" type="submit">
             Register Account
           </button>
-          <Link to='/login'>Already have an account? Login</Link>
+          <Link to="/login">Already have an account? Login</Link>
         </form>
-        </div>
-        </Fragment>
-      );
-}
+      </div>
+    </Fragment>
+  );
+};
 
-export default Register
+export default Register;
