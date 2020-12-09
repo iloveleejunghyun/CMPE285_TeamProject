@@ -4,7 +4,7 @@ import stockquotes
 import simplejson as json
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='../static', static_url_path='/')
+app = Flask(__name__, static_folder='./static', static_url_path='/')
 CORS(app)
 config = {
     'user': 'root',
