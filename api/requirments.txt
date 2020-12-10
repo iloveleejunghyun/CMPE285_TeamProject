@@ -5,3 +5,4 @@ requests
 mysql-connector-python
 simplejson
 flask-cors
+lxml

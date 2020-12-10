@@ -4,6 +4,9 @@ import stockquotes
 import simplejson as json
 from flask_cors import CORS
 
+from backend.StockManager import get_recomendation, get_company_name, get_curr_stock_price, get_each_amount, get_share_amount, get_history_portfolio
+from backend.StrategySelection import get_portion_list
+
 app = Flask(__name__, static_folder='./static', static_url_path='/')
 CORS(app)
 config = {
@@ -138,3 +141,33 @@ def invest():
             cursor.close()
             cnx.close()
         return response
+
+@app.route("/recomendation", methods=['GET'])
+def get_recomendation_route():
+    response = {}
+    try:
+        print(request.args.getlist('strategies'))        
+        amount = request.args.get('amount', 5000)
+        strategy_list = request.args.get('strategies')
+        print(strategy_list.split(','))
+        print(type(strategy_list.split(',')))
+        portion = get_portion_list(strategy_list.split(','))# portions
+        response = get_recomendation(portion, amount)
+    except mysql.connector.Error as err:
+        response = {'status': 500}
+    return response
+    
+    
+    
+# @app.route("/result", methods=['GET', 'POST'])
+# def get_result():
+#     if request.method == 'POST':
+#         amount = request.form.get('amount', None)
+#         strategy_list = request.form.getlist("strategy")
+#         portion = get_portion_list(strategy_list)
+#         prices = get_curr_stock_price(portion)
+#         company_name_di = get_company_name(portion)
+#         amount_di = get_each_amount(float(amount), portion)
+#         share_amount = get_share_amount(amount_di, prices)
+#         history_portfolio = get_history_portfolio(share_amount)
+#         return render_template('result.html', prices=prices, company_name_di=company_name_di, amount_di=amount_di, history_portfolio=history_portfolio)
