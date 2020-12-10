@@ -23,8 +23,9 @@ const LoginForm = (props) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.user == 200) {
+        if (data.user.email) {
           user.userId = email;
+          user.name = data.user.fname + " " + data.user.lname;
         }
         props.setLoading(false);
       })
