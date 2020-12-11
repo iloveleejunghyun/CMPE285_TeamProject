@@ -110,9 +110,13 @@ const Recomendation = () => {
                 setLoading(true);
                 setBuying(false);
                 let url = new URL(`http://${host}:${port}/recomendation`);
-                let params = { strategies: selected.join(",") };
+                let params = {
+                  strategies: selected.join(","),
+                  amount: ammount,
+                };
                 url.search = new URLSearchParams(params).toString();
                 setSuggestions([]);
+                console.log(url);
                 fetch(url)
                   .then((res) => res.json())
                   .then((data) => {
