@@ -15,7 +15,7 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`${host}:${port}/signin`, {
+    fetch(`http://${host}:${port}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

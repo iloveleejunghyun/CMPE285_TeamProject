@@ -1,0 +1,15 @@
+export const SEGMENT_COLORS = [
+  "Red",
+  "orange",
+  "yellow",
+  "olive",
+  "green",
+  "teal",
+  "blue",
+  "violet",
+  "purple",
+  "pink",
+  "brown",
+  "grey",
+  "black",
+];

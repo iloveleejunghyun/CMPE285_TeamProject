@@ -4,8 +4,9 @@ import stockquotes
 import simplejson as json
 from flask_cors import CORS
 
-from backend.StockManager import get_recomendation, get_company_name, get_curr_stock_price, get_each_amount, get_share_amount, get_history_portfolio
+from backend.StockManager import get_stock_info, get_recomendation, get_company_name, get_curr_stock_price, get_each_amount, get_share_amount, get_history_portfolio
 from backend.StrategySelection import get_portion_list
+
 
 app = Flask(__name__, static_folder='./static', static_url_path='/')
 CORS(app)
@@ -27,7 +28,7 @@ login_user = ( 'SELECT * FROM user '
 
 buy_stock = ( 'INSERT INTO portfolio(id, user, stock, qty, price) VALUES (NULL, %(user)s, %(stock)s, %(qty)s, %(price)s)')
 
-get_portfolio = ( 'SELECT stock, SUM(qty), AVG(price) FROM portfolio'
+get_portfolio = ( 'SELECT stock, SUM(qty) AS qty, AVG(price) AS avg_cost FROM portfolio'
                  ' WHERE user = %s'
                  ' GROUP BY stock')
 
@@ -104,7 +105,7 @@ def invest():
         response = {}
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(dictionary=True)
             cursor.execute(get_portfolio, (request.args.get('email'), ))
             res = cursor.fetchall()
             response = {'status': 200, 'portfolio': res}
@@ -126,7 +127,7 @@ def invest():
             purchase_details = {'user': details['email']}
             for stock in details['stocks']:
                 print(stock)
-                purchase_details['stock'] = stock['name']
+                purchase_details['stock'] = stock['symbol']
                 purchase_details['qty'] = stock['qty']
                 purchase_details['price'] = stock['price']
                 cursor.execute(buy_stock, purchase_details)
@@ -157,6 +158,17 @@ def get_recomendation_route():
         response = {'status': 500}
     return response
     
+
+@app.route("/stock", methods=['GET'])
+def get_stock_route():
+    response = {}
+    try:     
+        symbol = request.args.get('symbol')
+        stock_info = get_stock_info(symbol)
+        response = vars(stock_info)
+    except Error as err:
+        response = {'status': 500}
+    return response
     
     
 # @app.route("/result", methods=['GET', 'POST'])

@@ -16,6 +16,8 @@ def get_recomendation(portion, amount):
         stock_info = get_stock_info(key)
         recomendation[key] = {}
         recomendation[key]['price'] = stock_info.current_price
+        recomendation[key]['increase_dollars'] = stock_info.increase_dollars
+        recomendation[key]['increase_percent'] = stock_info.increase_percent
         recomendation[key]['name'] = stock_info.name
         recomendation[key]['symbol'] = key
         stock_history = {}
@@ -28,6 +30,8 @@ def get_recomendation(portion, amount):
         recomendation[key]['stock_history'] = stock_history
         recomendation[key]['historical'] = stock_info.historical
         recomendation[key]['cost'] = amount * portion[key]
+        recomendation[key]['portion'] = portion[key]
+        # recomendation[key]['stock_info'] = stock_info
     return recomendation
         
 

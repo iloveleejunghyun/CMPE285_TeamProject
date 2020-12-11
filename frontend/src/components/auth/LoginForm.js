@@ -7,7 +7,7 @@ const LoginForm = (props) => {
     email: "",
     password: "",
   });
-
+  const [failed, setFailed] = useState(false);
   const { email, password } = formData;
 
   const onSubmit = async (e) => {
@@ -26,12 +26,16 @@ const LoginForm = (props) => {
         if (data.user.email) {
           user.userId = email;
           user.name = data.user.fname + " " + data.user.lname;
+          setFailed(false);
+        } else {
+          setFailed(true);
         }
         props.setLoading(false);
       })
       .catch((err) => {
         console.error(err);
         props.setLoading(false);
+        setFailed(true);
       });
   };
 
@@ -42,9 +46,12 @@ const LoginForm = (props) => {
   return (
     <Fragment>
       <div className="ui medium header">Sign Into Your Account</div>
-      <form className="ui form" onSubmit={onSubmit}>
+      <form className="ui error form" onSubmit={onSubmit}>
         <div className="grouped fields">
-          <div className=" required field" style={{ minWidth: "100%" }}>
+          <div
+            className={failed ? "required field error" : "required field"}
+            style={{ minWidth: "100%" }}
+          >
             <label>Email:</label>
             <input
               type="text"
@@ -55,7 +62,10 @@ const LoginForm = (props) => {
               autoComplete="username"
             />
           </div>
-          <div className="required field" style={{ minWidth: "100%" }}>
+          <div
+            className={failed ? "required field error" : "required field"}
+            style={{ minWidth: "100%" }}
+          >
             <label>Passwrod</label>
             <input
               type="password"
