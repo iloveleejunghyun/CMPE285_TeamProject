@@ -147,8 +147,9 @@ def invest():
 def get_recomendation_route():
     response = {}
     try:
-        print(request.args.getlist('strategies'))        
-        amount = request.args.get('amount', 5000)
+        # print(request.args.getlist('strategies')) 
+        print(request.args)      
+        amount = int(request.args.get('amount', 5000))
         strategy_list = request.args.get('strategies')
         print(strategy_list.split(','))
         print(type(strategy_list.split(',')))
