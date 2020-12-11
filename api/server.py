@@ -170,17 +170,3 @@ def get_stock_route():
     except Error as err:
         response = {'status': 500}
     return response
-    
-    
-# @app.route("/result", methods=['GET', 'POST'])
-# def get_result():
-#     if request.method == 'POST':
-#         amount = request.form.get('amount', None)
-#         strategy_list = request.form.getlist("strategy")
-#         portion = get_portion_list(strategy_list)
-#         prices = get_curr_stock_price(portion)
-#         company_name_di = get_company_name(portion)
-#         amount_di = get_each_amount(float(amount), portion)
-#         share_amount = get_share_amount(amount_di, prices)
-#         history_portfolio = get_history_portfolio(share_amount)
-#         return render_template('result.html', prices=prices, company_name_di=company_name_di, amount_di=amount_di, history_portfolio=history_portfolio)
