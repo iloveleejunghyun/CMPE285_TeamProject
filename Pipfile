@@ -12,6 +12,7 @@ stockquotes = "*"
 bs4 = "*"
 requests = "*"
 yahoofinancials = "*"
+lxml = "*"
 
 [requires]
 python_version = "3.8"
