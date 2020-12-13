@@ -1,7 +1,7 @@
 from flask import Flask
 import stockquotes
 
-app = Flask(__name__, static_folder='../static', static_url_path='/')
+app = Flask(__name__, static_folder='./static', static_url_path='/')
 
 
 @app.route('/')
