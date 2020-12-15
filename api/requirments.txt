@@ -1,2 +1,8 @@
-stokquotes
+stockquotes
 Flask
+bs4
+requests
+mysql-connector-python
+simplejson
+flask-cors
+lxml
